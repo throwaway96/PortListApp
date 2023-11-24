@@ -1,5 +1,6 @@
 ﻿/* Part of PortListApp. Licensed under GNU AGPL version 3 or later. */
 
+using System.ComponentModel;
 using System.IO.Ports;
 
 namespace PortListApp
@@ -50,7 +51,7 @@ namespace PortListApp
                 }
             };
 
-            _contextMenuStrip.Opening += new System.ComponentModel.CancelEventHandler(MenuOpened);
+            _contextMenuStrip.Opening += new CancelEventHandler(MenuOpened);
 
             _notifyIcon.ContextMenuStrip = _contextMenuStrip;
             _notifyIcon.Visible = true;
@@ -93,7 +94,7 @@ namespace PortListApp
             Application.Exit();
         }
 
-        private void MenuOpened(object? sender, System.ComponentModel.CancelEventArgs e)
+        private void MenuOpened(object? sender, CancelEventArgs e)
         {
             _ = sender; _ = e;
 
