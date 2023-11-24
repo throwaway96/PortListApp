@@ -28,7 +28,7 @@ namespace PortListApp
                 BalloonTipTitle = programName,
             };
 
-            var toolStripLabel1 = new ToolStripLabel($"{programName} v{programVersion}");
+            var programInfoLabel = new ToolStripLabel($"{programName} v{programVersion}");
 
             var portsMenuItem = new ToolStripMenuItem("Ports");
 
@@ -43,7 +43,7 @@ namespace PortListApp
             _contextMenuStrip = new ContextMenuStrip()
             {
                 Items = {
-                    toolStripLabel1,
+                    programInfoLabel,
                     new ToolStripSeparator(),
                     portsMenuItem,
                     new ToolStripSeparator(),
@@ -81,8 +81,8 @@ namespace PortListApp
 
             Util.DebugLog($"port: {port}");
 
-            _notifyIcon.BalloonTipText = $"Launching on {port}...";
-            _notifyIcon.ShowBalloonTip(3000);
+            /* timeout is not actually used anymore; system settings used instead */
+            _notifyIcon.ShowBalloonTip(0, programName, $"Launching on {port}...", ToolTipIcon.Info);
 
             TermLauncher.Start(port, baudRate, TermTitle);
         }
