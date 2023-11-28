@@ -62,7 +62,7 @@ namespace PortListApp
 
         private void PortClicked(object? sender, ToolStripItemClickedEventArgs e)
         {
-            _ = sender;
+            _ = sender; /* unused */
 
             if (e is null)
             {
@@ -92,7 +92,7 @@ namespace PortListApp
 
         private void QuitClicked(object? sender, EventArgs e)
         {
-            _ = sender; _ = e;
+            _ = sender; _ = e; /* unused */
 
             Application.Exit();
         }
@@ -104,7 +104,7 @@ namespace PortListApp
 
         private void MenuOpened(object? sender, CancelEventArgs e)
         {
-            _ = sender; _ = e;
+            _ = sender; _ = e; /* unused */
 
             _portsDropDown.SuspendLayout();
             _portsDropDown.Items.Clear();
