@@ -16,6 +16,9 @@ namespace PortListApp
         private readonly NotifyIcon _notifyIcon;
         private readonly ContextMenuStrip _contextMenuStrip;
         private readonly ToolStripDropDown _portsDropDown;
+        private readonly ToolStripLabel _noPortsLabel = new ToolStripLabel("(no ports)") {
+            Enabled = false
+        };
 
         private SerialMenu()
         {
@@ -94,6 +97,11 @@ namespace PortListApp
             Application.Exit();
         }
 
+        private static string[] GetPorts()
+        {
+            return SerialPort.GetPortNames();
+        }
+
         private void MenuOpened(object? sender, CancelEventArgs e)
         {
             _ = sender; _ = e;
@@ -101,10 +109,17 @@ namespace PortListApp
             _portsDropDown.SuspendLayout();
             _portsDropDown.Items.Clear();
 
-            string[] ports = SerialPort.GetPortNames();
+            string[] ports = GetPorts();
 
-            /* add menu item for each port */
-            Array.ForEach(ports, (string p) => { _portsDropDown.Items.Add(new ToolStripMenuItem(p) { Tag = p }); });
+            if (ports.Length == 0)
+            {
+                _portsDropDown.Items.Add(_noPortsLabel);
+            }
+            else
+            {
+                /* add menu item for each port */
+                Array.ForEach(ports, (string p) => { _portsDropDown.Items.Add(new ToolStripMenuItem(p) { Tag = p }); });
+            }
 
             _portsDropDown.ResumeLayout();
         }
